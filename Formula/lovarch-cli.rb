@@ -8,7 +8,7 @@ class LovarchCli < Formula
 
   depends_on "python@3.12"
 
-  # NOTE on style: homebrew-core formulas list every Python dependency as a
+  # Style choice: homebrew-core formulas list every Python dependency as a
   # `resource` block with pinned SHA256s. This tap does NOT follow that
   # convention — we install deps via `pip` from PyPI at install time. This is
   # acceptable for a custom tap (not homebrew-core) and keeps maintenance
