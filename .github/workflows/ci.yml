@@ -1,0 +1,41 @@
+name: brew test-bot
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test-bot:
+    name: brew install + test (macos-latest)
+    runs-on: macos-latest
+
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Cache Homebrew Bundler RubyGems
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: ${{ runner.os }}-rubygems-
+
+      - name: Install Bundler RubyGems
+        run: brew install-bundler-gems
+
+      - uses: actions/checkout@v4
+
+      - name: Run brew style on changed formulas
+        run: brew style --formula --display-cop-names .
+
+      - name: Run brew test-bot --only-formulae
+        run: brew test-bot --only-formulae --root-url=. .
+
+      - name: Audit formula (informational, non-blocking on style only)
+        run: brew audit --strict --online --tap=. lovarch-cli || true
