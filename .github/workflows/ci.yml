@@ -31,11 +31,21 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - name: Run brew style on changed formulas
-        run: brew style --formula --display-cop-names .
+      - name: Symlink this checkout as a brew tap
+        run: |
+          tap_root="$(brew --repository)/Library/Taps/archprime-official"
+          mkdir -p "$tap_root"
+          ln -s "$GITHUB_WORKSPACE" "$tap_root/homebrew-lovarch"
+          brew tap-info archprime-official/lovarch
 
-      - name: Run brew test-bot --only-formulae
-        run: brew test-bot --only-formulae --root-url=. .
+      - name: brew style
+        run: brew style archprime-official/lovarch/lovarch-cli
 
-      - name: Audit formula (informational, non-blocking on style only)
-        run: brew audit --strict --online --tap=. lovarch-cli || true
+      - name: brew install (build from source)
+        run: brew install --verbose --build-from-source archprime-official/lovarch/lovarch-cli
+
+      - name: brew test
+        run: brew test archprime-official/lovarch/lovarch-cli
+
+      - name: brew audit (informational, non-blocking)
+        run: brew audit --tap=archprime-official/lovarch lovarch-cli || true
