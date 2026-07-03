@@ -22,7 +22,8 @@ class LovarchCli < Formula
 
     system python, "-m", "venv", venv_root
     system venv_root/"bin/python", "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"
-    system venv_root/"bin/python", "-m", "pip", "install", buildpath
+    # Install with the [mcp] extra so `lovarch mcp serve` works out of the box.
+    system venv_root/"bin/python", "-m", "pip", "install", "#{buildpath}[mcp]"
 
     # Symlink primary + alias binaries into Homebrew's bin
     %w[lovarch arch].each do |entrypoint|
