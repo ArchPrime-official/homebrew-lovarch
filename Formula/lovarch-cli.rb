@@ -1,8 +1,8 @@
 class LovarchCli < Formula
   desc "AI-powered architectural project execution CLI by Lovarch"
   homepage "https://github.com/ArchPrime-official/lovarch-cli"
-  url "https://github.com/ArchPrime-official/lovarch-cli/archive/refs/tags/v0.4.0.tar.gz"
-  sha256 "907634afc3442343e58e88aff6bc82d980e9cfba301ecb81bcd748d40f021067"
+  url "https://github.com/ArchPrime-official/lovarch-cli/archive/refs/tags/v0.4.1.tar.gz"
+  sha256 "99011bac3f1099b0b76cf9bb2033dccad50b6cf6cc3c425d6c953f85834a229f"
   license "MIT"
   head "https://github.com/ArchPrime-official/lovarch-cli.git", branch: "main"
 
