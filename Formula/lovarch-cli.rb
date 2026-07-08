@@ -1,8 +1,8 @@
 class LovarchCli < Formula
   desc "AI-powered architectural project execution CLI by Lovarch"
   homepage "https://github.com/ArchPrime-official/lovarch-cli"
-  url "https://github.com/ArchPrime-official/lovarch-cli/archive/refs/tags/v0.4.1.tar.gz"
-  sha256 "99011bac3f1099b0b76cf9bb2033dccad50b6cf6cc3c425d6c953f85834a229f"
+  url "https://github.com/ArchPrime-official/lovarch-cli/archive/refs/tags/v0.4.2.tar.gz"
+  sha256 "a46881617f3efaf9a0e4d3eb8a8279e44fa312e35ea35683dfa71cc3cf039fae"
   license "MIT"
   head "https://github.com/ArchPrime-official/lovarch-cli.git", branch: "main"
 
@@ -17,7 +17,7 @@ class LovarchCli < Formula
   # `brew bump-formula-pr`.
 
   def install
-    python = Formula["python@3.12"].opt_bin/"python3.12"
+    python = formula_opt_bin("python@3.12")/"python3.12"
     venv_root = libexec/"venv"
 
     system python, "-m", "venv", venv_root
@@ -66,6 +66,6 @@ class LovarchCli < Formula
 
     # `info` panel runs without network (free mode, not-configured state)
     info_output = shell_output("#{bin}/lovarch info")
-    assert_match "architettura-progetto", info_output
+    assert_match "Agenti", info_output
   end
 end
