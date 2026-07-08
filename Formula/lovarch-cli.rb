@@ -66,6 +66,6 @@ class LovarchCli < Formula
 
     # `info` panel runs without network (free mode, not-configured state)
     info_output = shell_output("#{bin}/lovarch info")
-    assert_match "architettura-progetto", info_output
+    assert_match "Agenti", info_output
   end
 end
