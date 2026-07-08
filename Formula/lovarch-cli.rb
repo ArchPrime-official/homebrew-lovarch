@@ -17,7 +17,7 @@ class LovarchCli < Formula
   # `brew bump-formula-pr`.
 
   def install
-    python = Formula["python@3.12"].opt_bin/"python3.12"
+    python = formula_opt_bin("python@3.12")/"python3.12"
     venv_root = libexec/"venv"
 
     system python, "-m", "venv", venv_root
