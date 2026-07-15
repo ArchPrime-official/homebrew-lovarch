@@ -6,6 +6,12 @@ class LovarchCli < Formula
   license "MIT"
   head "https://github.com/ArchPrime-official/lovarch-cli.git", branch: "main"
 
+  # Some Python deps (pydantic-core, via pydantic → the [mcp] extra) ship a Rust
+  # extension. When pip has no matching wheel for the user's interpreter it
+  # builds from source, which needs cargo — and Homebrew's build sandbox strips
+  # PATH, so a system Rust is invisible. Declaring it as a build dep puts cargo
+  # in the sandbox PATH. Without this, `brew install` fails with "cargo not found".
+  depends_on "rust" => :build
   depends_on "python@3.12"
 
   # Style choice: homebrew-core formulas list every Python dependency as a
